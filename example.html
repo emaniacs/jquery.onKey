@@ -1,0 +1,125 @@
+<html>
+    <head>
+        <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+        <script type="text/javascript" src="jquery.onKey.js"></script>
+        <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css" rel="stylesheet">
+        
+        <script type="text/javascript">
+            var Txt1Handler = {
+                'a': function(e) {
+                    var special = [];
+                    e.shiftKey ? special.push('shift') : '';
+                    e.altKey ? special.push('alt') : '';
+                    e.ctrlKey ? special.push('ctrl') : '';
+                    e.metaKey ? special.push('meta') : '';
+                    
+                    $('.txtOutput1').html(special.join('+') + ' + a');
+                },
+                '/': function(e) {
+                    e.preventDefault();
+                    $('.txtOutput1').html('Value is: '+ $(this).val());
+                }
+            };
+            
+            var Txt2Handler = {
+                'a' : function(e) {
+                    var key = e.which || e.keyCode;
+                    $('.txtOutput2').html(key);
+                },
+                'unknown': function(e){
+                    $('.txtOutput2').html('No handler for ('+(e.which||e.keyCode)+')');
+                },
+                'enter': function(e) {
+                    e.preventDefault();
+                    $('.txtOutput2').html('You press Enter');
+                }
+            };
+            
+            Txt2Handler['tab'] = function(e) {
+                console.log('remove enter.');
+                Txt2Handler['enter'] = undefined;
+            };
+            
+            $(document).ready(function(){
+                $('.txt1').onKey(Txt1Handler);
+                $('.txt2').onKey(Txt2Handler);
+                $('textarea').css({
+                    margin: '0px 0px 10px',
+                    width: '391px',
+                    height: '136px'
+                });
+            });
+            
+        </script>
+        
+        <title>jquery onKey plugin</title>
+        <meta name="author" content="emaniacs">
+        <style>
+        </style>
+
+    </head>
+    <body>
+        <div class="container">
+            <div class="row-fluid">
+                <div class="span4">
+                    <h2>Press some key</h2>
+                    <div>
+                        <textarea class='txt1'></textarea>
+                        
+                        <div class="well txtOutput1"></div>
+                    </div>
+                    
+                    <div>
+                        <textarea class='txt2'></textarea>
+                        
+                        <div class="well txtOutput2"></div>
+                    </div>
+                </div>
+                <div class="span8">
+                    <h2>Code</h2>
+                    <pre>
+var Txt1Handler = {
+    'a': function(e) {
+        var special = [];
+        e.shiftKey ? special.push('shift') : '';
+        e.altKey ? special.push('alt') : '';
+        e.ctrlKey ? special.push('ctrl') : '';
+        e.metaKey ? special.push('meta') : '';
+        
+        $('.txtOutput1').html(special.join('+') + ' + a');
+    },
+    '/': function(e) {
+        e.preventDefault();
+        $('.txtOutput1').html('Value is: '+ $(this).val());
+    }
+};
+
+var Txt2Handler = {
+    'a' : function(e) {
+        var key = e.which || e.keyCode;
+        $('.txtOutput2').html(key);
+    },
+    'unknown': function(e){
+        $('.txtOutput2').html('No handler for ('+(e.which||e.keyCode)+')');
+    },
+    'enter': function(e) {
+        e.preventDefault();
+        $('.txtOutput2').html('You press Enter');
+    }
+};
+
+Txt2Handler['tab'] = function(e) {
+    console.log('remove enter.');
+    Txt2Handler['enter'] = undefined;
+};
+
+$(document).ready(function(){
+    $('.txt1').onKey(Txt1Handler);
+    $('.txt2').onKey(Txt2Handler);
+});
+                    </pre>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
