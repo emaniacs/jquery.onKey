@@ -56,7 +56,7 @@
         "88": "x",
         "89": "y",
         "90": "z",
-        "91": "windows",
+        "91": "winkey",
         "93": "rightClick",
         "96": "numpad0",
         "97": "numpad1",
@@ -102,17 +102,17 @@
         "222": "'"
     };
     
-    $.fn.onKey = function(obj) {
-        if (typeof (obj) == 'object') {
+    $.fn.onKey = function(mainHandler) {
+        if (typeof (mainHandler) == 'object') {
             return this.on('keydown', function(event) {
                 var key = event.which || event.keyCode;
                 
                 if(keyCodeToChar[key]) {
                     var handler = keyCodeToChar[key];
-                    var callback = obj.hasOwnProperty(handler) ? 
-                                    obj[handler] : 
-                                    obj.hasOwnProperty('unknown') ?
-                                        obj['unknown'] :
+                    var callback = mainHandler.hasOwnProperty(handler) ? 
+                                    mainHandler[handler] : 
+                                    mainHandler.hasOwnProperty('unknown') ?
+                                        mainHandler['unknown'] :
                                         new Function();
                     if (typeof (callback) == 'function') {
                         callback.call(this, event);
