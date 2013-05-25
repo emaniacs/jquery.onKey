@@ -1,3 +1,8 @@
+/**
+ * jquery.onKey.js
+ * emaniacs <noone.nu1@gmail.com
+ * GPL
+ */
 ;(function($){
     var keyCodeToChar = {
         "8":"backspace",
@@ -111,7 +116,7 @@
                                     mainHandler[handler] : 
                                     mainHandler.hasOwnProperty('unknown') ?
                                         mainHandler['unknown'] :
-                                        new Function();
+                                        undefined;
                     if (typeof (callback) == 'function') {
                         callback.call(this, event);
                     }
